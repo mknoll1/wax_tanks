@@ -19,5 +19,5 @@ from web_tanks import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^all_tank_readings/', web_tanks.views.all_tank_reading)
+    url(r'^all_tank_readings/', views.all_tank_reading)
 ]

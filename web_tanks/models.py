@@ -9,6 +9,9 @@ class WaxTank(models.Model):
     description = models.CharField(max_length=255)
     desired_temp = models. IntegerField(default=0)
     sensor_id = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return '%s (%s): %s' % (self.description, self.sensor_id, self.desired_temp)
     
 
 class WaxTankReading(models.Model):

@@ -5,7 +5,6 @@ from web_tanks.models import *
 
 
 # Create your views here.
-@require_POST
 @csrf_exempt
 def all_tank_reading(request):
     context = {}
@@ -16,16 +15,16 @@ def all_tank_reading(request):
     for tank in tanks:
         wax_tank_reading = WaxTankReading.objects.create(
             wax_tank=tank,
-            temperature=request.POST.get(tank.sensor_id, tank.desired_temp),
+            temperature=request.GET.get(tank.sensor_id, tank.desired_temp),
             heat_active=False
         )
         # See if this tank has a higher difference than any other tank
-        if tank.desired_temp - wax_tank_reading > max_difference:
-            max_difference = tank.desired_temp - wax_tank_reading
+        if tank.desired_temp - wax_tank_reading.temperature > max_difference:
+            max_difference = tank.desired_temp - wax_tank_reading.temperature
             max_difference_tank_sensor = tank.sensor_id
             max_reading = wax_tank_reading
         wax_tank_readings.add(wax_tank_reading)
-        context[tank.sensor_id:False]
+        context[tank.sensor_id] = False
     if max_difference_tank_sensor:
         max_reading.heat_active = True
         max_reading.save()
