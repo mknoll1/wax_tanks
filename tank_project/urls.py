@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from web_tanks import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^all_tank_readings/', web_tanks.views.all_tank_reading)
 ]
